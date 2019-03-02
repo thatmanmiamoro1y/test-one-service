@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: test-service
+  cloud:
+    config:
+      retry:
+        initial-interval: 2000
+        max-interval: 10000
+        multiplier: 2
+        max-attempts: 10
+      uri: http://localhost:8001
+      username: thatman
+      password: miamoro1y
+      fail-fast: true
+
+
+
+
+
+
