@@ -13,12 +13,7 @@ spring:
       uri: http://localhost:8001
       username: config
       password: config
-      fail-fast: false
-      label: ${spring.profiles.active}
-      profile: ${spring.profiles.active}
-
-
-
-
-
+      fail-fast: true
+      profile: dev
+      label: dev
 
