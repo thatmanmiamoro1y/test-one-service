@@ -11,8 +11,8 @@ spring:
         multiplier: 2
         max-attempts: 10
       uri: http://localhost:8001
-      username: config
-      password: config
+      username: thatman-config
+      password: thatman-config
       fail-fast: true
       profile: dev
       label: dev
