@@ -1,8 +1,8 @@
 package com.thatman.testservice.service.impl;
 
-import com.thatman.server10.Entity.User;
-import com.thatman.server10.client.Server20ServerClient;
-import com.thatman.server10.service.TestService;
+import com.thatman.testservice.Entity.User;
+import com.thatman.testservice.client.TestServiceTwoClient;
+import com.thatman.testservice.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class TestServiceImpl implements TestService {
 
     @Autowired
-    Server20ServerClient server20ServerClient;
+    TestServiceTwoClient testServiceTwoClient;
 
 
     @Override
@@ -18,6 +18,6 @@ public class TestServiceImpl implements TestService {
         User user=new User();
         System.out.println("------------------->>"+user.getUserName());
         System.out.println("------------------->>"+user.getUserPassword());
-        return server20ServerClient.getUser();
+        return testServiceTwoClient.getUser();
     }
 }

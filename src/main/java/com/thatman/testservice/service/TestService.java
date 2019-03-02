@@ -1,7 +1,7 @@
 package com.thatman.testservice.service;
 
 
-import com.thatman.server10.Entity.User;
+import com.thatman.testservice.Entity.User;
 import org.springframework.stereotype.Service;
 
 @Service
