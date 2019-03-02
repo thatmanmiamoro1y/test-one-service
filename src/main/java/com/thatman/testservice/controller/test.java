@@ -16,7 +16,6 @@ public class test {
 
     @GetMapping(value = "getUser")
     public User getUser(){
-
-        return  testService.getUser();
+        return testService.getUser();
     }
 }

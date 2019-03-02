@@ -11,11 +11,11 @@ public class TestServiceImpl implements TestService {
 
     @Autowired
     TestServiceTwoClient testServiceTwoClient;
-
+    @Autowired
+    User user;
 
     @Override
     public User getUser() {
-        User user=new User();
         System.out.println("------------------->>"+user.getUserName());
         System.out.println("------------------->>"+user.getUserPassword());
         return testServiceTwoClient.getUser();

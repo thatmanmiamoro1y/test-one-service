@@ -1,20 +1,12 @@
 package com.thatman.testservice.Entity;
 
-import com.thatman.testservice.config.ConfigValue;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 @Data
+@Component
 public class User {
-
-    private String userName;
-
-    private String userPassword;
-
-    public User(){}
-
-    public User(ConfigValue configValue){
-        this.userName=configValue.getUserName();
-        this.userPassword=configValue.getUserPassword();
-    }
+    public @Value(value = "${userName}") String userName;
+    public @Value(value = "${userPassword}")  String userPassword;
 }
