@@ -1,6 +1,8 @@
 spring:
   application:
-    name: test-service
+    name: test-one-service
+  profiles:
+    active: dev
   cloud:
     config:
       retry:
@@ -9,9 +11,11 @@ spring:
         multiplier: 2
         max-attempts: 10
       uri: http://localhost:8001
-      username: thatman
-      password: miamoro1y
-      fail-fast: true
+      username: config
+      password: config
+      fail-fast: false
+      label: ${spring.profiles.active}
+      profile: ${spring.profiles.active}
 
 
 
