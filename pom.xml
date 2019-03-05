@@ -14,7 +14,7 @@
     <groupId>com.thatman</groupId>
     <artifactId>test-one-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>test-one-service-</name>
+    <name>test-one-service</name>
     <description>测试服务</description>
 
 

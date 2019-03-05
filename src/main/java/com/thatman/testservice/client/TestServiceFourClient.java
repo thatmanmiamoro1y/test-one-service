@@ -6,9 +6,10 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 
+
 @Component
-@FeignClient(name = "test-two-service",fallback = TestServiceTwoClientFallback.class)
-public interface TestServiceTwoClient {
+@FeignClient(name = "test-four-service",fallback = TestServiceFourClientFallback.class)
+public interface TestServiceFourClient {
 
     @GetMapping(value ="test/getUser")
     User getUser();
