@@ -9,8 +9,8 @@ public class TestServiceTwoClientFallback implements TestServiceTwoClient {
     @Override
     public User getUser() {
         User user=new User();
-        user.setUserName("--------->>>TestServiceTwoClientFallback");
-        user.setUserPassword("--------->>>TestServiceTwoClientFallback");
+        user.setUserName("--------->>>TestServiceTwoClientFallback调用服务超时");
+        user.setUserPassword("--------->>>TestServiceTwoClientFallback调用服务超时");
         return user;
     }
 }
