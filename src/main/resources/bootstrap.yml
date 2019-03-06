@@ -1,6 +1,10 @@
+server:
+  port: 8501
+  servlet:
+    context-path: /test-service-one
 spring:
   application:
-    name: test-one-service
+    name: test-service-one
   profiles:
     active: dev
   cloud:

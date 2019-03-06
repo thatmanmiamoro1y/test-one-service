@@ -5,12 +5,12 @@ import com.thatman.testservice.Entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestServiceThreeClientFallback implements TestServiceThreeClient {
+public class TestServiceTwoClientFallback implements TestServiceTwoClient {
     @Override
     public User getUser() {
         User user=new User();
-        user.setUserName("调用服务超时");
-        user.setUserPassword("调用服务超时");
+        user.setUserName("--------->>>TestServiceTwoClientFallback");
+        user.setUserPassword("--------->>>TestServiceTwoClientFallback");
         return user;
     }
 }
