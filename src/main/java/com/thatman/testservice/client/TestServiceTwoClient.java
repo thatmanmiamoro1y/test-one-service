@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient(name = "test-service-two",fallback = TestServiceTwoClientFallback.class)
 public interface TestServiceTwoClient {
 
-    @GetMapping(value ="test/getUser")
+    @GetMapping(value ="test-service-two/test/getUser")
     User getUser();
 
 }

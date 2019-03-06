@@ -1,7 +1,5 @@
 server:
   port: 8501
-  servlet:
-    context-path: /test-service-one
 spring:
   application:
     name: test-service-one
