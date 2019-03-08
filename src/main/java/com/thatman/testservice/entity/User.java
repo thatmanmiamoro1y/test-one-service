@@ -1,6 +1,7 @@
-package com.thatman.testservice.Entity;
+package com.thatman.testservice.entity;
 
 import lombok.Data;
+
 
 @Data
 public class User {
