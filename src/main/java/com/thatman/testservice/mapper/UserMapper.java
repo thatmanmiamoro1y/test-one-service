@@ -1,4 +1,4 @@
-package com.thatman.testservice.dao;
+package com.thatman.testservice.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.thatman.testservice.entity.User;

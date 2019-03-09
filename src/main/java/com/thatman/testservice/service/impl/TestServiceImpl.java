@@ -1,8 +1,7 @@
 package com.thatman.testservice.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.thatman.testservice.client.TestServiceTwoClient;
-import com.thatman.testservice.dao.UserMapper;
+import com.thatman.testservice.mapper.UserMapper;
 import com.thatman.testservice.entity.User;
 import com.thatman.testservice.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +31,11 @@ public class TestServiceImpl implements TestService , ApplicationListener<WebSer
         System.out.println("--------->>>test-service-one:port:"+port);
         System.out.println("------------------->>"+this.userName);
         System.out.println("------------------->>"+this.userPassword);
-        user.setName("thatman");
-        user=userMapper.selectOne(new QueryWrapper<User>().eq("id","1"));
-        System.out.printf(user.getName());
+        user=userMapper.selectByPrimaryKey("a2bf7de1-427c-11e9-a837-c85b7623d608");
+        System.out.println(user.getName());
+        System.out.println(user.getPassword());
+        user=userMapper.selectById("a2bf81c5-427c-11e9-a837-c85b7623d608");
+        System.out.println(user.getName());
         System.out.println(user.getPassword());
         return testServiceTwoClient.getUser();
     }
