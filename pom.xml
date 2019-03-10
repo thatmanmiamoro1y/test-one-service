@@ -72,7 +72,7 @@
         </dependency>
 
 
-        <!-- druid连接池的依赖 -->
+        <!-- druid-spring连接池的依赖 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>

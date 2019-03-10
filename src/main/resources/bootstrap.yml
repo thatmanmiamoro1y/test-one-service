@@ -3,8 +3,6 @@ server:
 spring:
   application:
     name: test-service-one
-  profiles:
-    active: dev
   cloud:
     config:
       retry:
@@ -16,9 +14,4 @@ spring:
       username: thatman-config
       password: thatman-config
       fail-fast: true
-      profile: dev
-      label: dev
-
-
-
 
