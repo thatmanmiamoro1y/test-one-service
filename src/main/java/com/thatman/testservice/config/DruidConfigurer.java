@@ -2,6 +2,7 @@ package com.thatman.testservice.config;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +14,8 @@ import org.springframework.context.annotation.Configuration;
  * @Version 1.0
  */
 @Configuration
-public class DruidConfiguration {
+@Slf4j
+public class DruidConfigurer {
     @Bean
     public ServletRegistrationBean druidStatViewServle() {
         //注册服务
@@ -39,7 +41,7 @@ public class DruidConfiguration {
         filterRegistrationBean.addUrlPatterns("/*");
         // 添加不需要忽略的格式信息
         filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
-        System.out.println("druid初始化成功!");
+        log.info("--------->>>druid加载成功");
         return filterRegistrationBean;
 
     }
