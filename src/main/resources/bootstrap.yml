@@ -18,5 +18,3 @@ spring:
       fail-fast: true
       label: dev
       profile: dev
-
-
