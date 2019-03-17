@@ -2,12 +2,14 @@ package com.thatman.testservice.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @Author: thatman
  * @Date: 2019/3/17 21:41
  * @Version 1.0
  */
+@Configuration
 public class RabbitMQConfigurer {
     //topic模式：模糊匹配-主题
     public static final String TOPIC_QUEUE1 = "topic.queue1";

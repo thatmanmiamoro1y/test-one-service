@@ -3,9 +3,10 @@ package com.thatman.testservice.entity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.io.Serializable;
 import java.util.Date;
 @TableName(value = "user")
-public class User {
+public class User implements Serializable{
     @TableId(value = "id")
     private String id;
 
