@@ -1,6 +1,8 @@
 package com.thatman.testservice.service;
 
+import com.rabbitmq.client.Channel;
 import com.thatman.testservice.entity.User;
+import org.springframework.amqp.core.Message;
 
 /**
  * @Author: thatman
@@ -9,5 +11,5 @@ import com.thatman.testservice.entity.User;
  */
 public interface RabbitService {
     User sendMessage();
-    User receiveMessage(User user);
+    void receiveMessage(User user, Message message, Channel channel);
 }
