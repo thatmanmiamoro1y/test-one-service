@@ -1,7 +1,8 @@
 package com.thatman.testservice.controller;
 
 import com.thatman.testservice.entity.User;
-import com.thatman.testservice.service.RabbitService;
+import com.thatman.testservice.entity.WorkMessage;
+import com.thatman.testservice.rabbitMQ.WorkMQ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,14 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version 1.0
  */
 @RestController
-@RequestMapping(value = "/rabbit/")
+@RequestMapping(value = "/work/")
 public class RabbitMQController {
 
     @Autowired
-    RabbitService rabbitService;
-    @GetMapping(value = "sendMessage")
-    public User sendMessage(){
-        return rabbitService.sendMessage();
+    WorkMQ workMQ;
+
+    @GetMapping(value = "sendWorkMessage")
+    public WorkMessage sendMessage(){
+        return workMQ.sendMessage();
     }
 
 }
