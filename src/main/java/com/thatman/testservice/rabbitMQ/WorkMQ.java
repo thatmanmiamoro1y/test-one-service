@@ -11,6 +11,6 @@ import org.springframework.amqp.core.Message;
  */
 public interface WorkMQ {
     WorkMessage sendMessage();
-    void listenWorkQueueOne(Message message, Channel channel);
-    void listenWorkQueueTwo(Message message, Channel channel);
+    void listenWorkQueueOne(Message message, Channel channel,long tag);
+    void listenWorkQueueTwo(Message message, Channel channel,long tag);
 }
