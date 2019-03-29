@@ -26,9 +26,12 @@ public class RabbitMQConfigurer {
     public static final String QUEUE_TWO = "queue.two";
     public static final String QUEUE_THREE = "queue.three";
 
-    public static final String ROUTING_KEY_DIRECT = "routingKey.direct.work";
-    public static final String ROUTING_KEY_TOPIC = "routingKey.topic.*";
-
+    public static final String ROUTING_KEY_DIRECT_ONE = "routingKey.direct.one";
+    public static final String ROUTING_KEY_DIRECT_TWO = "routingKey.direct.two";
+    public static final String ROUTING_KEY_DIRECT_THREE = "routingKey.direct.three";
+    public static final String ROUTING_KEY_TOPIC_ONE = "routingKey.topic.*";
+    public static final String ROUTING_KEY_TOPIC_TWO = "routingKey.topic.*";
+    public static final String ROUTING_KEY_TOPIC_THREE = "routingKey.topic.#";
     //队列名称  durable是否持久化  exclusive 是否排他队列 autoDelete 无消费者时是否删除队列 arguments 死信队列绑定参数
     @Bean
     public Queue queueOne() {
@@ -65,31 +68,52 @@ public class RabbitMQConfigurer {
         return new TopicExchange(TOPIC_EXCHANGE);
     }
 
-    //binding queue和exchange绑定策略：队列 交换机类型 超时时间
-    @Bean
-    Binding bindingExchangeFanoutAndQueueOne() {
-        return BindingBuilder.bind(queueOne()).to(fanoutExchange());
-    }
-    @Bean
-    Binding bindingExchangeAndQueueTwo() {
-        return BindingBuilder.bind(queueTwo()).to(fanoutExchange());
-    }
-    @Bean
-    Binding bindingExchangeAndQueueThree() {
-        return BindingBuilder.bind(queueThree()).to(fanoutExchange());
-    }
+//    //binding queue和exchange绑定策略：队列 交换机类型 超时时间
+//    //start
+//    @Bean
+//    Binding bindingExchangeFanoutAndQueueOne() {
+//        return BindingBuilder.bind(queueOne()).to(fanoutExchange());
+//    }
+//    @Bean
+//    Binding bindingExchangeAndQueueTwo() {
+//        return BindingBuilder.bind(queueTwo()).to(fanoutExchange());
+//    }
+//    @Bean
+//    Binding bindingExchangeAndQueueThree() {
+//        return BindingBuilder.bind(queueThree()).to(fanoutExchange());
+//    }//end
 
 //    //binding queue和exchange绑定策略：队列 交换机类型 超时时间
+//    //start
 //    @Bean
-//    Binding bindingExchangeDirect() {
-//        return BindingBuilder.bind(queueTwo()).to(directExchange()).with(ROUTING_KEY_DIRECT);
+//    Binding bindingExchangeDirectOne() {
+//        return BindingBuilder.bind(queueOne()).to(directExchange()).with(ROUTING_KEY_DIRECT_ONE);
 //    }
 //
-//    //binding queue和exchange绑定策略：队列 交换机类型 超时时间
 //    @Bean
-//    Binding bindingExchangeTopic() {
-//        return BindingBuilder.bind(queueThree()).to(topicExchange()).with(ROUTING_KEY_TOPIC);
+//    Binding bindingExchangeDirectTwo() {
+//        return BindingBuilder.bind(queueTwo()).to(directExchange()).with(ROUTING_KEY_DIRECT_TWO);
 //    }
+//
+//    @Bean
+//    Binding bindingExchangeDirectThree() {
+//        return BindingBuilder.bind(queueThree()).to(directExchange()).with(ROUTING_KEY_DIRECT_THREE);
+//    }//end
+
+    //binding queue和exchange绑定策略：队列 交换机类型 超时时间
+    //start
+    @Bean
+    Binding bindingExchangeTopicOne() {
+        return BindingBuilder.bind(queueOne()).to(topicExchange()).with(ROUTING_KEY_TOPIC_ONE);
+    }
+    @Bean
+    Binding bindingExchangeTopicTwo() {
+        return BindingBuilder.bind(queueTwo()).to(topicExchange()).with(ROUTING_KEY_TOPIC_TWO);
+    }
+    @Bean
+    Binding bindingExchangeTopicThree() {
+        return BindingBuilder.bind(queueThree()).to(topicExchange()).with(ROUTING_KEY_TOPIC_THREE);
+    }//end
 
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory factory) {
@@ -100,16 +124,16 @@ public class RabbitMQConfigurer {
         //exchange->queue
         rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> {
             String correlationId = message.getMessageProperties().getCorrelationId();
-            log.info("消息：{} 发送失败, 应答码：{} 原因：{} 交换机: {}  路由键: {}", correlationId, replyCode, replyText, exchange, routingKey);
+            log.info("消息exchange发送到queue失败--------->>>消息：{} 发送失败, 应答码：{} 原因：{} 交换机: {}  路由键: {}", correlationId, replyCode, replyText, exchange, routingKey);
         });
 
         // 消息确认, yml需要配置 publisher-confirms: true
         //sender -> exchange
         rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
             if (ack) {
-                 log.info("消息发送到exchange成功，消息Id:{}",correlationData.getId());
+                log.info("消息发送到exchange成功--------->>>消息Id:{}", correlationData.getId());
             } else {
-                log.info("消息发送到exchange失败,原因: {}", cause);
+                log.info("消息发送到exchange失败--------->>>原因: {}", cause);
             }
         });
         return rabbitTemplate;
