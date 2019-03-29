@@ -17,72 +17,79 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 public class RabbitMQConfigurer {
 
-    public static final String EXCHANGE_ONE = "work.exchange.one";
-    public static final String EXCHANGE_TWO = "work.exchange.two";
-    public static final String EXCHANGE_THREE = "work.exchange.three";
+    public static final String FANOUT_EXCHANGE = "exchange.fanout";
+    public static final String DIRECT_EXCHANGE = "exchange.direct";
+    public static final String TOPIC_EXCHANGE = "exchange.topic";
 
 
-    public static final String QUEUE_ONE = "work.queue.one";
-    public static final String QUEUE_TWO = "work.queue.two";
-    public static final String QUEUE_THREE = "work.queue.three";
+    public static final String QUEUE_ONE = "queue.one";
+    public static final String QUEUE_TWO = "queue.two";
+    public static final String QUEUE_THREE = "queue.three";
 
-    public static final String ROUTINGKEY_ONE = "work.routingKey.one";
-    public static final String ROUTINGKEY_TWO = "work.routingKey.two";
-    public static final String ROUTINGKEY_THREE = "work.routingKey.three";
+    public static final String ROUTING_KEY_DIRECT = "routingKey.direct.work";
+    public static final String ROUTING_KEY_TOPIC = "routingKey.topic.*";
 
     //队列名称  durable是否持久化  exclusive 是否排他队列 autoDelete 无消费者时是否删除队列 arguments 死信队列绑定参数
     @Bean
-    public Queue workQueueOne() {
+    public Queue queueOne() {
         return new Queue(QUEUE_ONE, true, false, false, null);
     }
 
     //队列名称  durable是否持久化  exclusive 是否排他队列 autoDelete 无消费者时是否删除队列 arguments 死信队列绑定参数
     @Bean
-    public Queue workQueueTwo() {
+    public Queue queueTwo() {
         return new Queue(QUEUE_TWO, true, false, false, null);
     }
 
     //队列名称  durable是否持久化  exclusive 是否排他队列 autoDelete 无消费者时是否删除队列 arguments 死信队列绑定参数
     @Bean
-    public Queue workQueueThree() {
+    public Queue queueThree() {
         return new Queue(QUEUE_THREE, true, false, false, null);
     }
 
     //fanout Exchange 交换机路由规则：发送到所有绑定到该exchange的queue 忽略routing key
     @Bean
-    FanoutExchange fanoutExchangeOne() {
-        return new FanoutExchange(EXCHANGE_ONE);
+    FanoutExchange fanoutExchange() {
+        return new FanoutExchange(FANOUT_EXCHANGE);
     }
 
-    //fanout Exchange 交换机路由规则：发送到所有绑定到该exchange的queue 忽略routing key
+    //direct Exchange 交换机路由规则：发送到指定routing key的 exchange
     @Bean
-    FanoutExchange fanoutExchangeTwo() {
-        return new FanoutExchange(EXCHANGE_TWO);
+    DirectExchange directExchange() {
+        return new DirectExchange(DIRECT_EXCHANGE);
     }
 
-    //fanout Exchange 交换机路由规则：发送到所有绑定到该exchange的queue 忽略routing key
+    //topic Exchange 交换机路由规则：发送到模糊匹配routing key的 exchange
     @Bean
-    FanoutExchange fanoutExchangeThree() {
-        return new FanoutExchange(EXCHANGE_THREE);
-    }
-
-    //binding queue和exchange绑定策略：队列 交换机类型 超时时间
-    @Bean
-    Binding bindingExchangeOne() {
-        return BindingBuilder.bind(workQueueOne()).to(fanoutExchangeOne());
+    TopicExchange topicExchange() {
+        return new TopicExchange(TOPIC_EXCHANGE);
     }
 
     //binding queue和exchange绑定策略：队列 交换机类型 超时时间
     @Bean
-    Binding bindingExchangeTwo() {
-        return BindingBuilder.bind(workQueueTwo()).to(fanoutExchangeOne());
+    Binding bindingExchangeFanoutAndQueueOne() {
+        return BindingBuilder.bind(queueOne()).to(fanoutExchange());
+    }
+    @Bean
+    Binding bindingExchangeAndQueueTwo() {
+        return BindingBuilder.bind(queueTwo()).to(fanoutExchange());
+    }
+    @Bean
+    Binding bindingExchangeAndQueueThree() {
+        return BindingBuilder.bind(queueThree()).to(fanoutExchange());
     }
 
-    //binding queue和exchange绑定策略：队列 交换机类型 超时时间
-    @Bean
-    Binding bindingExchangeThree() {
-        return BindingBuilder.bind(workQueueThree()).to(fanoutExchangeOne());
-    }
+//    //binding queue和exchange绑定策略：队列 交换机类型 超时时间
+//    @Bean
+//    Binding bindingExchangeDirect() {
+//        return BindingBuilder.bind(queueTwo()).to(directExchange()).with(ROUTING_KEY_DIRECT);
+//    }
+//
+//    //binding queue和exchange绑定策略：队列 交换机类型 超时时间
+//    @Bean
+//    Binding bindingExchangeTopic() {
+//        return BindingBuilder.bind(queueThree()).to(topicExchange()).with(ROUTING_KEY_TOPIC);
+//    }
 
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory factory) {

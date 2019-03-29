@@ -51,7 +51,15 @@ public class WorkMQImpl implements WorkMQ
          * 第三个参数: 传输的对象
          * 第四个参数: correlationData，指定消息唯一id
          **/
-        rabbitTemplate.convertAndSend(RabbitMQConfigurer.QUEUE_ONE,workMessage,new CorrelationData(UUID.randomUUID().toString()));
+        //FANOUT
+        rabbitTemplate.convertAndSend(RabbitMQConfigurer.FANOUT_EXCHANGE,"","",new CorrelationData(UUID.randomUUID().toString()));
+
+//        //DIRECT
+//        rabbitTemplate.convertAndSend(RabbitMQConfigurer.FANOUT_EXCHANGE,"","",new CorrelationData(UUID.randomUUID().toString()));
+//
+//        //TOPIC
+//        rabbitTemplate.convertAndSend(RabbitMQConfigurer.FANOUT_EXCHANGE,"","",new CorrelationData(UUID.randomUUID().toString()));
+
         log.info("发送消息");
         return workMessage;
     }
@@ -64,22 +72,22 @@ public class WorkMQImpl implements WorkMQ
         try {
             //向MQ发送ack，消息已经被消费:该消息的index rabbit是否可以全部全部删除
             channel.basicAck(tag, false);
-            log.info("Addressee one--------->>>success:message={},tag={}",message.toString(),tag);
+            log.info("Addressee queue_one--------->>>success:message={},tag={}",message.getBody().toString(),tag);
         } catch (IOException e) {
-            throw new RuntimeException("Addressee one--------->>>fail");
+            throw new RuntimeException("Addressee queue_one--------->>>fail");
         }
     }
 
     // queues是指要监听的队列的名字
-    @RabbitListener(queues = RabbitMQConfigurer.QUEUE_ONE)
+    @RabbitListener(queues = RabbitMQConfigurer.QUEUE_TWO)
     @Override
     public void listenWorkQueueTwo(Message message, Channel channel,@Header(AmqpHeaders.DELIVERY_TAG) long tag) {
         try {
             //向MQ发送ack，消息已经被消费:该消息的index rabbit是否可以全部全部删除
             channel.basicAck(tag, false);
-            log.info("Addressee two--------->>>success:message={},tag={}",message.toString(),tag);
+            log.info("Addressee queue_two--------->>>success:message={},tag={}",message.getBody().toString(),tag);
         } catch (IOException e) {
-            throw new RuntimeException("Addressee two--------->>>fail");
+            throw new RuntimeException("Addressee queue_two--------->>>fail");
         }
     }
 
