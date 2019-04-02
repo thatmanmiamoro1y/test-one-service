@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @Author: thatman
@@ -69,10 +70,10 @@ public class WorkMQImpl implements WorkMQ
     public void listenWorkQueueOne(Message message, Channel channel,@Header(AmqpHeaders.DELIVERY_TAG) long tag) {
         try {
             //向MQ发送ack，消息已经被消费:该消息的index rabbit是否可以全部全部删除
-//            channel.basicAck(tag, false);
-//            log.info("Addressee queue_one--------->>>success:message={},tag={}",message.getBody().toString(),tag);
-            channel.basicNack(tag,false,true);//拒绝消息 参数：消息的index 是否批量拒绝（小于等于该消息的index） 是否重新加入到队列
-            log.info("Addressee queue_one--------->>>fail:message={},tag={}",message.getBody().toString(),tag);
+            channel.basicAck(tag, false);
+            log.info("Addressee queue_one--------->>>success:message={},tag={}",message.getBody().toString(),tag);
+//            channel.basicNack(tag,false,true);//拒绝消息 参数：消息的index 是否批量拒绝（小于等于该消息的index） 是否重新加入到队列
+//            log.info("Addressee queue_one--------->>>fail:message={},tag={}",message.getBody().toString(),tag);
 
         } catch (IOException e) {
             throw new RuntimeException("Addressee queue_one--------->>>fail");
