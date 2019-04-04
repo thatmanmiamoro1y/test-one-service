@@ -1,8 +1,9 @@
+
 server:
   port: 8501
 spring:
   application:
-    name: test-service-one
+    name: service-one
   profiles:
     active: dev
   cloud:

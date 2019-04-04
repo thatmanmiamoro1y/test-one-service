@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Component
-@FeignClient(name = "test-service-two",fallback = TestServiceTwoClientFallback.class)
+@FeignClient(name = "service-two",fallback = TestServiceTwoClientFallback.class)
 public interface TestServiceTwoClient {
 
-    @GetMapping(value ="test-service-two/test/getUser")
+    @GetMapping(value ="api/test/getUser")
     User getUser();
 
 }
